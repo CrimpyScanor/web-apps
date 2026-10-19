@@ -9,14 +9,18 @@ use Illuminate\Support\Facades\Route;
 |
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
+| containing the "web" middleware group.
 |
 */
 
+// Ruta de la Landing Page (Pública)
 Route::get('/', function () {
-    return view('welcome');
+    return view('landingpage');
 });
 
+// Rutas de Autenticación generadas por Laravel UI
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Rutas del Dashboard (Soporta tanto /home como /dashboard)
+Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard')->middleware('auth');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
